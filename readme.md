@@ -88,14 +88,14 @@ Options:
 ==========================================================================
         REPORT FOR LAST 5 DAYS (since 2025-05-09T17:05:43Z)
 ==========================================================================
---------------------------------------------------------------------------------------------------------------
-| User                 | Comments | Approvals | Engagement Depth       | Engagement Breadth | Engagement (w=1.0) |
---------------------------------------------------------------------------------------------------------------
-| john-developer       | 35       | 12        | 2.35 (47/20)           | 0.80 (16/20)       | 1.88               |
-| alice-coder          | 27       | 6         | 1.83 (33/18)           | 0.67 (12/18)       | 1.23               |
-| bob-engineer         | 15       | 3         | 0.82 (18/22)           | 0.41 (9/22)        | 0.34               |
-| emma-qa              | 8        | 2         | 0.50 (10/20)           | 0.35 (7/20)        | 0.18               |
---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+| User                 | Comments | Approvals | Depth           | Breadth (w=2)      | Combined     |
+-----------------------------------------------------------------------------------------------------
+| ##############       | 35       | 12        | 2.35 (47/20)    | 0.80 (16/20)       | 1.88         |
+| ##############       | 27       | 6         | 1.83 (33/18)    | 0.67 (12/18)       | 1.23         |
+| ##############       | 15       | 3         | 0.82 (18/22)    | 0.41 (9/22)        | 0.34         |
+| ##############       | 8        | 2         | 0.50 (10/20)    | 0.35 (7/20)        | 0.18         |
+-----------------------------------------------------------------------------------------------------
 ```
 
 ### With Debug Mode
@@ -149,6 +149,13 @@ Options:
 - **1.0**: Equal weight to depth and breadth
 - **1.5**: Favor breadth (incentivize looking at more PRs)
 - **2.0**: Strongly favor breadth (maximize PR coverage)
+
+### Depth Normalization
+The formula `1 - Math.pow(depthDiminishingFactor, depth)` converts our unbounded `depth` metric to a 0-1 scale with diminishing returns. The `depthDiminishingFactor` (between 0-1) controls how quickly the value approaches 1 as depth increases. Smaller factors create steeper curves that reward fewer interactions, while larger factors produce more gradual curves that require sustained engagement to achieve high scores. This ensures additional interactions always improve the score while preventing any single highly-active review from dominating the metric.
+
+The below chart demonstrates the effect of three difference values of `depthDiminishingFactor` on this metric:
+
+![alt text](images/depth-normalisation.png)
 
 ## 🛡️ License
 

@@ -3,6 +3,8 @@ import Table from 'cli-table3';
 import { Config, ActivityItem,  ProcessedData, UserProcessedData } from './types';
 import { computeScore } from './metric';
 
+const MASKED_NAME = '#######';
+
 const reporter = {
   /**
    * Generate summary report
@@ -29,7 +31,7 @@ const reporter = {
     });
     
     // Process data for each user
-    const userData = reporter.processUserData(activityData, totalPrs, config.breadthWeight, config.depthDiminishingFactor);
+    const userData = reporter.processUserData(activityData, totalPrs, config.breadthWeight, config.depthDiminishingFactor, config.withNames);
     
     // Sort by combined score (descending)
     userData.sort((a, b) => b.combinedScore - a.combinedScore);
@@ -157,7 +159,8 @@ const reporter = {
     activityData: ActivityItem[], 
     totalPrs: number, 
     breadthWeight: number,
-    depthDiminishingFactor: number
+    depthDiminishingFactor: number,
+    withNames: boolean
   ): UserProcessedData[] {
     // User engagement data
     interface UserData {
@@ -234,7 +237,7 @@ const reporter = {
       const combinedScore = computeScore(depth, breadth, breadthWeight, depthDiminishingFactor);
       
       // Format for display
-      const displayName = user.length > 20 ? user.substring(0, 20) : user;
+      const displayName = withNames ? user.length > 20 ? user.substring(0, 20) : user : MASKED_NAME;
       const formattedDepth = `${depth.toFixed(2)} (${engagementSum}/${othersPRs})`;
       const formattedBreadth = `${breadth.toFixed(2)} (${uniquePrs.size}/${othersPRs})`;
       

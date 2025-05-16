@@ -11,6 +11,7 @@ interface Config {
   apiUrl: string;
   webUrl: string;
   tempDir: string;
+  withNames: boolean;
 }
 
 interface PR {

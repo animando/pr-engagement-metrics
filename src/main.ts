@@ -8,7 +8,7 @@ import { Config } from './types';
 import { github } from './github'
 import { processor } from './processor'
 import { reporter } from './reporter'
-import { validateWeight, validateToken, validateDepthDiminishingFactor } from './validation';
+import { validateWeight, validateToken, validateDepthDiminishingFactor, validateConfig } from './validation';
 
 async function main(): Promise<void> {
   const program = new Command();
@@ -31,6 +31,7 @@ async function main(): Promise<void> {
         .default('1.0')
         .argParser(validateWeight)
     )
+    .addOption(new Option('-n --with-names', 'Display names').default(false))
     .parse(process.argv);
   
   const options = program.opts();
@@ -43,6 +44,7 @@ async function main(): Promise<void> {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   const token = validateToken(GITHUB_TOKEN);
+
   
   
   try {
@@ -57,9 +59,11 @@ async function main(): Promise<void> {
       token,
       apiUrl: `https://api.github.com/repos/${ORG}/${REPO}`,
       webUrl: `https://github.com/${ORG}/${REPO}`,
-      tempDir: ''
+      tempDir: '',
+      withNames: options.withNames,
     };
-    
+    validateConfig(config);
+
     console.log(chalk.blue('\nGitHub Engagement Analyzer'));
     console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} for the last ${chalk.white(DAYS.toString())} days`));
     

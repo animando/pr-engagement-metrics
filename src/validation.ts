@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { Config } from './types';
 
 function validateWeight(WEIGHT: string): number {
 
@@ -29,8 +30,16 @@ function validateDepthDiminishingFactor(value: string) {
   return parsed;
 }
 
+function validateConfig(config: Config) {
+  if (!config.withNames && config.debug) {
+    console.error(chalk.red('Error: Cannot produce anonymised detailed report, add -n flag'));
+    process.exit(1);
+  }
+}
+
 export {
   validateToken,
   validateWeight,
-  validateDepthDiminishingFactor
+  validateDepthDiminishingFactor,
+  validateConfig
 }

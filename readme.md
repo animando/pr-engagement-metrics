@@ -53,19 +53,19 @@ $env:GITHUB_TOKEN="your_github_token_here"
 ```bash
 
 # Specify organization and repository
-github-engagement --org your-org --repo your-repo
+pr-engagement-metrics --org your-org --repo your-repo
 
 # Look back more days
-github-engagement --days 14
+pr-engagement-metrics --days 14
 
 # Prioritize breadth over depth (values > 1.0 prioritize breadth)
-github-engagement --weight 1.5
+pr-engagement-metrics --weight 1.5
 
 # Adjust the rate at which increased depth has reduced impact on overall metric
-github-engagement -s 0.6
+pr-engagement-metrics -s 0.6
 
 # Show detailed breakdown per user
-github-engagement --debug
+pr-engagement-metrics --debug
 ```
 
 ### Options

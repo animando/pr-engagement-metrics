@@ -59,8 +59,8 @@
     "typescript": "^4.9.5"
   },
   "files": [
-    "dist/index.js",
-    "dist/index.d.ts",
+    "dist/*.js",
+    "dist/*.d.ts",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"

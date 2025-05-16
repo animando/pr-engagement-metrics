@@ -28,7 +28,7 @@ async function main(): Promise<void> {
     )
     .addOption(
       new Option('-w, --weight <breadthWeight>', 'Weight for engagement breadth')
-        .default('1.0')
+        .default('2.0')
         .argParser(validateWeight)
     )
     .addOption(new Option('-n, --with-names', 'Display names').default(false))
@@ -44,8 +44,6 @@ async function main(): Promise<void> {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   const token = validateToken(GITHUB_TOKEN);
-
-  
   
   try {
     // Create configuration

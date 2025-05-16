@@ -1,0 +1,68 @@
+{
+  "name": "pr-engagement-metrics",
+  "version": "1.0.0",
+  "description": "Analyze team engagement patterns on GitHub pull requests with metrics for both depth and breadth of participation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "pr-engagement-metrics": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "github",
+    "engagement",
+    "analytics",
+    "pull-requests",
+    "code-review",
+    "team-metrics",
+    "collaboration",
+    "developer-tools",
+    "cli"
+  ],
+  "author": {
+    "name": "Animando",
+    "email": "animandosolutions@gmail.com",
+    "url": "https://github.com/animando/pr-engagement-metrics"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/animando/pr-engagement-metrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/animando/pr-engagement-metrics/issues"
+  },
+  "homepage": "https://github.com/animando/pr-engagement-metrics#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.3",
+    "commander": "^9.4.1",
+    "dotenv": "^16.0.3",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^18.13.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^4.9.5"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ]
+}

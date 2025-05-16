@@ -1,0 +1,103 @@
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+import { Command, Option } from 'commander';
+import chalk from 'chalk';
+import ora from 'ora';
+import { Config } from './types';
+import { github } from './github'
+import { processor } from './processor'
+import { reporter } from './reporter'
+import { validateWeight, validateToken, validateDepthDiminishingFactor } from './validation';
+
+async function main(): Promise<void> {
+  const program = new Command();
+  
+  program
+    .name('github-engagement')
+    .description('Analyze team engagement patterns on GitHub pull requests')
+    .version('1.0.0')
+    .requiredOption('-o, --org <org>', 'GitHub organization')
+    .requiredOption('-r, --repo <repo>', 'GitHub repository')
+    .option('-t, --days <days>', 'Number of days to look back', '5')
+    .option('-d, --debug', 'Enable debug output with detailed activity', false)
+    .addOption(
+      new Option('-s, --depth-diminishing-factor <depthDiminishingFactor>', 'The rate at which importance of ever-increasing depth diminishes (>0 <1)')
+        .default('0.4')
+        .argParser(validateDepthDiminishingFactor)
+    )
+    .addOption(
+      new Option('-w, --weight <breadthWeight>', 'Weight for engagement breadth')
+        .default('1.0')
+        .argParser(validateWeight)
+    )
+    .parse(process.argv);
+  
+  const options = program.opts();
+  
+  const DAYS = parseInt(options.days, 10);
+  const DEBUG = options.debug;
+  const ORG = options.org;
+  const REPO = options.repo;
+  
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+  const token = validateToken(GITHUB_TOKEN);
+  
+  
+  try {
+    // Create configuration
+    const config: Config = {
+      org: ORG,
+      repo: REPO,
+      days: DAYS,
+      breadthWeight: options.weight,
+      depthDiminishingFactor: options.depthDiminishingFactor,
+      debug: DEBUG,
+      token,
+      apiUrl: `https://api.github.com/repos/${ORG}/${REPO}`,
+      webUrl: `https://github.com/${ORG}/${REPO}`,
+      tempDir: ''
+    };
+    
+    console.log(chalk.blue('\nGitHub Engagement Analyzer'));
+    console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} for the last ${chalk.white(DAYS.toString())} days`));
+    
+    // Create spinner
+    const spinner = ora('Fetching GitHub data...').start();
+    
+    // Create temp directory
+    config.tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'github-engagement-'));
+    
+    // Register cleanup function
+    process.on('exit', () => {
+      try {
+        fs.rmSync(config.tempDir, { recursive: true, force: true });
+      } catch (err) {
+        console.error(`Error cleaning up temporary directory: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    });
+    
+    // Fetch and process data
+    const data = await github.fetchGitHubData(config);
+    spinner.text = 'Processing activity data...';
+    const processedData = processor.processActivityData(data, config);
+    spinner.succeed('GitHub data processed successfully');
+    
+    // Generate reports
+    reporter.generateSummaryReport(processedData, config);
+    
+    if (DEBUG) {
+      reporter.generateDetailedReport(processedData, config);
+    }
+    
+  } catch (err) {
+    console.error(chalk.red(`\nError: ${err instanceof Error ? err.message : String(err)}`));
+    if (err instanceof Error && err.stack) {
+      console.error(chalk.gray(err.stack.split('\n').slice(1).join('\n')));
+    }
+    process.exit(1);
+  }
+}
+
+export { main }

@@ -13,9 +13,9 @@ const reporter = {
     const { activityData, prCreators } = data;
     const totalPrs = new Set(prCreators.map(pc => pc.prNumber)).size;
     
-    console.log('\n==========================================================================');
-    console.log(`        REPORT FOR LAST ${config.days} DAYS`);
-    console.log('==========================================================================');
+    console.log('\n==================================================================================');
+    console.log(`        REPORT ${config.nDays} DAYS FROM ${config.startDate}`);
+    console.log('==================================================================================');
     
     // Create table
     const table = new Table({
@@ -58,9 +58,9 @@ const reporter = {
   generateDetailedReport(data: ProcessedData, config: Config): void {
     const { activityData, prAuthors } = data;
     
-    console.log('\n==========================================================================');
-    console.log(`        DETAILED ACTIVITY REPORT FOR LAST ${config.days} DAYS`);
-    console.log('==========================================================================');
+    console.log('\n==================================================================================');
+    console.log(`        DETAILED ACTIVITY REPORT ${config.nDays} DAYS FROM ${config.startDate}`);
+    console.log('==================================================================================');
     
     // Organize data by user
     type UserData = { isApprover: boolean; isCommenter: boolean };

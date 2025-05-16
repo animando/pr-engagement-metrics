@@ -3,7 +3,9 @@
 interface Config {
   org: string;
   repo: string;
-  days: number;
+  startDate: string;
+  endDate: string;
+  nDays: number;
   breadthWeight: number;
   depthDiminishingFactor: number;
   debug: boolean;

@@ -9,6 +9,7 @@ import { github } from './github'
 import { processor } from './processor'
 import { reporter } from './reporter'
 import { validateWeight, validateToken, validateDepthDiminishingFactor, validateConfig } from './validation';
+import { utils } from './utils';
 
 async function main(): Promise<void> {
   const program = new Command();
@@ -20,6 +21,7 @@ async function main(): Promise<void> {
     .requiredOption('-o, --org <org>', 'GitHub organization')
     .requiredOption('-r, --repo <repo>', 'GitHub repository')
     .option('-t, --days <days>', 'Number of days to look back', '5')
+    .option('-e, --end <end>', 'Number of days back to end')
     .option('-d, --debug', 'Enable debug output with detailed activity', false)
     .addOption(
       new Option('-s, --depth-diminishing-factor <depthDiminishingFactor>', 'The rate at which importance of ever-increasing depth diminishes (>0 <1)')
@@ -37,6 +39,7 @@ async function main(): Promise<void> {
   const options = program.opts();
   
   const DAYS = parseInt(options.days, 10);
+  const END = options.end ? parseInt(options.end, 10) : 0;
   const DEBUG = options.debug;
   const ORG = options.org;
   const REPO = options.repo;
@@ -50,7 +53,9 @@ async function main(): Promise<void> {
     const config: Config = {
       org: ORG,
       repo: REPO,
-      days: DAYS,
+      startDate: utils.getDateNDaysAgo(DAYS),
+      endDate: utils.getEndDate(END),
+      nDays: DAYS - END,
       breadthWeight: options.weight,
       depthDiminishingFactor: options.depthDiminishingFactor,
       debug: DEBUG,
@@ -63,7 +68,7 @@ async function main(): Promise<void> {
     validateConfig(config);
 
     console.log(chalk.blue('\nGitHub Engagement Analyzer'));
-    console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} for the last ${chalk.white(DAYS.toString())} days`));
+    console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} between ${chalk.white(config.startDate)} and ${chalk.white(config.endDate)} `));
     
     // Create spinner
     const spinner = ora('Fetching GitHub data...').start();

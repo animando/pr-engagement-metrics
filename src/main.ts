@@ -31,7 +31,7 @@ async function main(): Promise<void> {
         .default('1.0')
         .argParser(validateWeight)
     )
-    .addOption(new Option('-n --with-names', 'Display names').default(false))
+    .addOption(new Option('-n, --with-names', 'Display names').default(false))
     .parse(process.argv);
   
   const options = program.opts();

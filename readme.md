@@ -78,6 +78,7 @@ Options:
   -w, --weight <weight>                                    Weight for engagement breadth (>=0.25) (default: "1.0")
   -s, --depth-diminishing-factor <depthDiminishingFactor>  The rate at which importance of ever-increasing depth diminishes (>0 <1) (default: "0.4")
   -d, --debug                                              Enable debug output with detailed activity
+  -n, --with-names                                         Include names in the report (default is anonymised)
   -h, --help                                               Display help for command
 ```
 

@@ -23,7 +23,7 @@ const reporter = {
         chalk.white('User'),
         chalk.white('Comments'),
         chalk.white('Approvals'),
-        chalk.white('Depth'),
+        chalk.white(`Depth (s=${config.depthDiminishingFactor})`),
         chalk.white(`Breadth (w=${config.breadthWeight})`),
         chalk.white(`Combined`)
       ],
@@ -226,19 +226,21 @@ const reporter = {
       
       // Calculate ratios
       let depth = 0;
+      let normalisedDepth = 0;
       let breadth = 0;
       
       if (othersPRs > 0) {
-        depth = engagementSum / othersPRs;
+        depth = engagementSum / uniquePrs.size;
         breadth = uniquePrs.size / othersPRs;
+        normalisedDepth = 1 - Math.pow(depthDiminishingFactor, depth)
       }
       
       // Calculate combined score with weighting
-      const combinedScore = computeScore(depth, breadth, breadthWeight, depthDiminishingFactor);
+      const combinedScore = computeScore(normalisedDepth, breadth, breadthWeight);
       
       // Format for display
       const displayName = withNames ? user.length > 20 ? user.substring(0, 20) : user : MASKED_NAME;
-      const formattedDepth = `${depth.toFixed(2)} (${engagementSum}/${othersPRs})`;
+      const formattedDepth = `${depth.toFixed(2)} (${engagementSum}/${uniquePrs.size}) → ${normalisedDepth.toFixed(2)}`;
       const formattedBreadth = `${breadth.toFixed(2)} (${uniquePrs.size}/${othersPRs})`;
       
       return {
@@ -246,6 +248,7 @@ const reporter = {
         comments,
         approvals,
         depth,
+        normalisedDepth,
         breadth,
         formattedDepth,
         formattedBreadth,

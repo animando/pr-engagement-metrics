@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   program
     .name('github-engagement')
     .description('Analyze team engagement patterns on GitHub pull requests')
-    .version('1.0.8')
+    .version('1.0.11')
     .requiredOption('-o, --org <org>', 'GitHub organization')
     .requiredOption('-r, --repo <repo>', 'GitHub repository')
     .option('-t, --days <days>', 'Number of days to look back', '5')
@@ -30,7 +30,7 @@ async function main(): Promise<void> {
     )
     .addOption(
       new Option('-w, --weight <breadthWeight>', 'Weight for engagement breadth')
-        .default(2)
+        .default(3)
         .argParser(validateWeight)
     )
     .addOption(new Option('-n, --with-names', 'Display names').default(false))

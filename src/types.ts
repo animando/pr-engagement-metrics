@@ -73,6 +73,7 @@ interface UserProcessedData {
   comments: number;
   approvals: number;
   depth: number;
+  normalisedDepth: number;
   breadth: number;
   formattedDepth: string;
   formattedBreadth: string;

@@ -1,4 +1,4 @@
-# GitHub Engagement Analyzer
+# PR Engagement Metrics
 
 A powerful CLI tool for analyzing team engagement patterns on GitHub pull requests.
 

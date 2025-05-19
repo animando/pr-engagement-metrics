@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   program
     .name('github-engagement')
     .description('Analyze team engagement patterns on GitHub pull requests')
-    .version('1.0.11')
+    .version('1.0.12')
     .requiredOption('-o, --org <org>', 'GitHub organization')
     .requiredOption('-r, --repo <repo>', 'GitHub repository')
     .option('-t, --days <days>', 'Number of days to look back', '5')
@@ -67,7 +67,7 @@ async function main(): Promise<void> {
     };
     validateConfig(config);
 
-    console.log(chalk.blue('\nGitHub Engagement Analyzer'));
+    console.log(chalk.blue('\PR Engagement Metrics'));
     console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} between ${chalk.white(config.startDate)} and ${chalk.white(config.endDate)} `));
     
     // Create spinner

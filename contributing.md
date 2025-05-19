@@ -1,6 +1,6 @@
-# Contributing to GitHub Engagement Analyzer
+# Contributing to PR Engagement Metrics
 
-Thank you for considering contributing to GitHub Engagement Analyzer! This document outlines the process for contributing to this project.
+Thank you for considering contributing to PR Engagement Metrics! This document outlines the process for contributing to this project.
 
 ## Code of Conduct
 

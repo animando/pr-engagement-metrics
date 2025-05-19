@@ -1,6 +1,6 @@
 {
   "name": "pr-engagement-metrics",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Analyze team engagement patterns on GitHub pull requests with metrics for both depth and breadth of participation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

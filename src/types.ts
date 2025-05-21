@@ -3,8 +3,8 @@
 interface Config {
   org: string;
   repo: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   nDays: number;
   breadthWeight: number;
   depthDiminishingFactor: number;

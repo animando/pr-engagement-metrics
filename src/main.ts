@@ -68,7 +68,7 @@ async function main(): Promise<void> {
     validateConfig(config);
 
     console.log(chalk.blue('\PR Engagement Metrics'));
-    console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} between ${chalk.white(config.startDate)} and ${chalk.white(config.endDate)} `));
+    console.log(chalk.gray(`Analyzing ${chalk.white(ORG + '/' + REPO)} between ${chalk.white(config.startDate.toLocaleString())} and ${chalk.white(config.endDate.toLocaleString())} `));
     
     // Create spinner
     const spinner = ora('Fetching GitHub data...').start();

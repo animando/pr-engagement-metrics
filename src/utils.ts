@@ -5,16 +5,16 @@ export const utils = {
   /**
    * Get date N days ago in ISO format
    */
-  getDateNDaysAgo(days: number): string {
+  getDateNDaysAgo(days: number): Date {
     const date = new Date();
     date.setDate(date.getDate() - days);
-    return date.toISOString();
+    return date;
   },
 
   /**
    * Get end date based on days back (0 = today)
    */
-  getEndDate(daysBack: number): string {
+  getEndDate(daysBack: number): Date {
     return daysBack === 0 ? 
       this.getCurrentDate() : 
       this.getDateNDaysAgo(daysBack);
@@ -23,8 +23,8 @@ export const utils = {
   /**
    * Get current date in ISO format
    */
-  getCurrentDate(): string {
-    return new Date().toISOString();
+  getCurrentDate(): Date {
+    return new Date();
   },
 
   /**

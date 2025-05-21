@@ -14,7 +14,7 @@ const reporter = {
     const totalPrs = new Set(prCreators.map(pc => pc.prNumber)).size;
     
     console.log('\n==================================================================================');
-    console.log(`        REPORT ${config.nDays} DAYS FROM ${config.startDate}`);
+    console.log(`        REPORT FROM ${config.startDate.toLocaleString()} TO ${config.endDate.toLocaleString()} (${config.nDays} DAYS)`);
     console.log('==================================================================================');
     
     // Create table
@@ -59,7 +59,7 @@ const reporter = {
     const { activityData, prAuthors } = data;
     
     console.log('\n==================================================================================');
-    console.log(`        DETAILED ACTIVITY REPORT ${config.nDays} DAYS FROM ${config.startDate}`);
+    console.log(`        DETAILED ACTIVITY REPORT FROM ${config.startDate.toLocaleString()} TO ${config.endDate.toLocaleString()} (${config.nDays} DAYS)`);
     console.log('==================================================================================');
     
     // Organize data by user

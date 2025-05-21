@@ -196,7 +196,7 @@ const github = {
       `/pulls/${prNumber}/comments`,
       { 
         per_page: '100',
-        since: config.startDate 
+        since: config.startDate.toISOString() 
       },
       config
     );
@@ -216,7 +216,7 @@ const github = {
       {
         sort: 'created',
         direction: 'desc',
-        since: config.startDate,
+        since: config.startDate.toISOString(),
         per_page: '100'
       },
       config
@@ -263,7 +263,7 @@ const github = {
       });
       
       if (updatedPulls.length === 0) {
-        console.log(`No PRs found within date range: ${config.startDate} to ${config.endDate}`);
+        console.log(`No PRs found within date range: ${config.startDate.toLocaleString()} to ${config.endDate.toLocaleString()}`);
       }
       
       fs.writeFileSync(

@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   program
     .name('github-engagement')
     .description('Analyze team engagement patterns on GitHub pull requests')
-    .version('1.0.12')
+    .version('1.0.13')
     .requiredOption('-o, --org <org>', 'GitHub organization')
     .requiredOption('-r, --repo <repo>', 'GitHub repository')
     .option('-t, --days <days>', 'Number of days to look back', '5')
@@ -25,7 +25,7 @@ async function main(): Promise<void> {
     .option('-d, --debug', 'Enable debug output with detailed activity', false)
     .addOption(
       new Option('-s, --depth-diminishing-factor <depthDiminishingFactor>', 'The rate at which importance of ever-increasing depth diminishes (>0 <1)')
-        .default('0.4')
+        .default('0.7')
         .argParser(validateDepthDiminishingFactor)
     )
     .addOption(

@@ -76,7 +76,7 @@ Options:
   -r, --repo <repo>                                        GitHub repository
   -t, --days <days>                                        Number of days to look back (default: "5")
   -w, --weight <weight>                                    Weight for engagement breadth (>=0.25) (default: "3.0")
-  -s, --depth-diminishing-factor <depthDiminishingFactor>  The rate at which importance of ever-increasing depth diminishes (>0 <1) (default: "0.4")
+  -s, --depth-diminishing-factor <depthDiminishingFactor>  The rate at which importance of ever-increasing depth diminishes (>0 <1) (default: "0.7")
   -d, --debug                                              Enable debug output with detailed activity
   -n, --with-names                                         Include names in the report (default is anonymised)
   -h, --help                                               Display help for command

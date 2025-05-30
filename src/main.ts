@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   program
     .name('github-engagement')
     .description('Analyze team engagement patterns on GitHub pull requests')
-    .version('1.0.14')
+    .version('1.0.15')
     .requiredOption('-o, --org <org>', 'GitHub organization')
     .requiredOption('-r, --repo <repo>', 'GitHub repository')
     .option('-t, --days <days>', 'Number of days to look back', '5')

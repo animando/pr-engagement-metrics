@@ -37,7 +37,6 @@ const reporter = {
     userData.sort((a, b) => {
       if (Number.isNaN(a.combinedScore)) return 1;
       if (Number.isNaN(b.combinedScore)) return -1;
-      console.log('comparing ', {a, b})
       return b.combinedScore - a.combinedScore
     });
 
